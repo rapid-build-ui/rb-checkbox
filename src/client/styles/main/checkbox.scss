@@ -1,0 +1,75 @@
+/***********
+ * CHECKBOX
+ ***********/
+.checkbox {
+	position: relative;
+	top: remy(1);
+	margin-right: remy(6);
+	border: 1px solid mapGet($formControlColors, borders, checkbox, default);
+	&::before,
+	&::after {
+		opacity: 0;
+		position: absolute;
+		transition: all .3s;
+		content: '';
+	}
+	&::before {
+		border-radius: 50%;
+	}
+}
+
+/* Dimensions
+ *************/
+.checkbox {
+	$dim: 16px;
+	width: $dim;
+	height: $dim;
+	min-width: $dim;
+	min-height: $dim;
+	&::before { // outer circle
+		$dim: 220%;
+		$coords: -61%;
+		top: $coords;
+		left: $coords;
+		width: $dim;
+		height: $dim;
+	}
+	&::after { // the dot
+		$dim: 50%;
+		$coords: 28%;
+		$width: remy(3.5);
+		top: $coords / 5;
+		left: $coords;
+		width: $dim / 2;
+		height: $dim;
+		border-style: solid;
+		border-width: 0 $width $width 0;
+		transform: rotate(45deg); // rotate L to make checkmark
+	}
+}
+
+/* States
+ *********/
+.sublabel {
+	&:focus {
+		outline: none;
+	}
+	&.active {
+		font-weight: 400;
+		letter-spacing: .025em;
+	}
+	&:focus .checkbox,
+	&:hover .checkbox,
+	&.active .checkbox {
+		border-color: mapGet($formControlColors, borders, active, default);
+	}
+	&:focus .checkbox::before,
+	&:hover .checkbox::before {
+		opacity: .1;
+		background-color: mapGet($formControlColors, bg, active, default);
+	}
+	&.active .checkbox::after {
+		opacity: 1;
+		border-color: mapGet($formControlColors, bg, active, default);
+	}
+}

@@ -1,3 +1,35 @@
-rb-checkbox
+<div
+	?disabled="${props.disabled}"
+	class="
+		rb-checkbox
+		${props._valid ? 'valid' : 'invalid'}
+	">
+
+	${props.label
+		? html`<label class="control-label">${props.label}</label>`
+		: null
+	}
+
+	<label
+		tabindex="${props.disabled ? -1 : 0}"
+		class="sublabel ${!!props.value ? 'active' : ''}"
+		@keypress="${this._onkeypress.bind(this, props.value)}">
+		<input
+			hidden
+			tabindex="-1"
+			type="checkbox"
+			name="${props.name}"
+			.value="${props.value}"
+			?checked="${!!props.value}"
+			@click="${this._onclick.bind(this, props.value)}">
+		<b class="checkbox"></b>
+		${props.sublabel}
+	</label>
+
+	${props._eMsg || props.subtext
+		? html`<span class="subtext">${props._eMsg || props.subtext}</span>`
+		: null
+	}
+<div>
 
 <link rel="stylesheet" href="../styles/rb-checkbox.css">
