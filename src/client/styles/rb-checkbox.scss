@@ -1,10 +1,19 @@
-/******************
+/*********************
  * RB-CHECKBOX STYLES
- ******************/
+ *********************/
 // Sassy Goodness
 @import 'sass/functions.scss';
-@import 'sass/variables.scss';
+@import 'sass/colors/palette.scss';
+@import 'sass/colors/form-control.scss';
 
 /* The Component
  ****************/
-
+.rb-checkbox {
+	@import 'main/common.scss';
+	@import 'main/labels.scss';
+	@import 'main/checkbox.scss';
+	@import 'main/subtext.scss';
+	// In Order!
+	@import 'main/states.scss';
+	@import 'main/disabled.scss';
+}

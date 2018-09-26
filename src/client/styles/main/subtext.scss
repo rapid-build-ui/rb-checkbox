@@ -1,0 +1,7 @@
+/**********
+ * SUBTEXT
+ **********/
+.subtext {
+	padding-left: 1px;
+	color: mapGet($formControlColors, text, subtext, default);
+}

@@ -1,0 +1,18 @@
+/*********
+ * STATES
+ *********/
+&.invalid {
+	label,
+	.subtext {
+		color: mapGet($formControlColors, text, invalid, default);
+	}
+	.checkbox {
+		border-color: mapGet($formControlColors, borders, invalid, default) !important;
+		&::before {
+			background-color: mapGet($formControlColors, bg, invalid, default) !important;
+		}
+		&::after {
+			border-color: mapGet($formControlColors, bg, invalid, default) !important;
+		}
+	}
+}
