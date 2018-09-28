@@ -16,15 +16,6 @@ export class RbCheckbox extends FormControl(RbBase()) {
 			formControl: this.shadowRoot.querySelector('input')
 		});
 	}
-	updated(prevProps, prevState) { // :void (runs before viewReady())
-		if (super.updated) super.updated(prevProps, prevState);
-		if (!this.rb.view.isReady) return;
-		if (prevProps.value === this.value) return;
-		// runs after view updated (required)
-		this.rb.events.emit(this, 'value-changed', {
-			detail: { value: this.value }
-		});
-	}
 
 	/* Properties
 	 *************/
@@ -33,6 +24,9 @@ export class RbCheckbox extends FormControl(RbBase()) {
 			...super.props,
 			kind: props.string,
 			label: props.string,
+			inline: props.boolean,
+			horizontal: props.boolean,
+			right: props.boolean,
 			sublabel: props.string,
 			subtext: props.string,
 			value: Object.assign({}, props.any, {
@@ -63,7 +57,16 @@ export class RbCheckbox extends FormControl(RbBase()) {
 	}
 	async setValue(value) { // :void
 		this.value = !value;
-		await this.validate();
+		// await this.validate();
+	}
+
+	/* Observer
+	 ***********/
+	updating(prevProps) { // :void
+		if (prevProps.value === this.value) return;
+		this.rb.events.emit(this, 'value-changed', {
+			detail: { value: this.value }
+		});
 	}
 
 	/* Event Handlers

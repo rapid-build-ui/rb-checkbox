@@ -2,6 +2,9 @@
 	?disabled="${props.disabled}"
 	class="
 		rb-checkbox
+		${props.inline ? 'inline' : ''}
+		${props.horizontal ? 'horizontal' : ''}
+		${props.right ? 'right' : ''}
 		${props._valid ? 'valid' : 'invalid'}
 	">
 
