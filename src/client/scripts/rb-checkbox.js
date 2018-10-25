@@ -40,6 +40,9 @@ export class RbCheckbox extends FormControl(RbBase()) {
 						case /^{[^]*}$/.test(val): // object
 							newVal = JSON.parse(val);
 							break;
+						case /^-?\d*\.?\d*$/.test(val): //number
+							newVal = parseFloat(val)
+							break;
 						default:  // string
 							newVal = val;
 					}
