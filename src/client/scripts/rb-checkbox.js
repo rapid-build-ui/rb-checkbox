@@ -7,6 +7,13 @@ import Type from '../../rb-base/scripts/type-service.js';
 import template from '../views/rb-checkbox.html';
 
 export class RbCheckbox extends FormControl(RbBase()) {
+
+	constructor() {
+		super();
+		this.state = {
+			value: undefined
+		}
+	}
 	/* Lifecycle
 	 ************/
 	viewReady() { // :void
@@ -40,12 +47,13 @@ export class RbCheckbox extends FormControl(RbBase()) {
 						case /^{[^]*}$/.test(val): // object
 							newVal = JSON.parse(val);
 							break;
-						case /^-?\d*\.?\d*$/.test(val): //number
+						case /^-?\d*\.?\d*$/.test(val): // number
 							newVal = parseFloat(val)
 							break;
 						default:  // string
 							newVal = val;
 					}
+
 					return newVal;
 				}
 			})
@@ -59,8 +67,10 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		return code.toLowerCase();
 	}
 	async setValue(value) { // :void
-		this.value = !value;
-		// await this.validate();
+		if (this.value === undefined || this.state.value === undefined) return this.value = true;
+		if (typeof(value) === 'boolean') return this.value = !value;
+		if (!!this.value) return this.value = null;
+		this.value = this.state.value;
 	}
 
 	/* Observer
@@ -72,10 +82,17 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		});
 	}
 
+	updated(prevProps, prevState) {
+		super.updated && super.updated(prevProps, prevState);
+		if (!!this.state.value) return;
+		this.state.value = this.value;
+	}
+
 	/* Event Handlers
 	 *****************/
-	_onclick(value, evt) { // :void
+	async _onclick(value, evt) { // :void
 		this.setValue(value);
+		await this.validate()
 	}
 	_onkeypress(value, evt) { // :void
 		const keys = ['enter','space'];
