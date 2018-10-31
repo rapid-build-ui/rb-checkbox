@@ -94,12 +94,13 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		this.setValue(value);
 		await this.validate()
 	}
-	_onkeypress(value, evt) { // :void
+	async _onkeypress(value, evt) { // :void
 		const keys = ['enter','space'];
 		const key  = this.getKey(evt.code);
 		if (keys.indexOf(key) === -1) return;
 		evt.preventDefault(); // prevent space key from moving page down
 		this.setValue(value);
+		await this.validate()
 		this.rb.elms.formControl.checked = this.value; // needed for firefox
 	}
 
