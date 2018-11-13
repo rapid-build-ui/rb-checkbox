@@ -7,6 +7,13 @@ import Type from '../../rb-base/scripts/type-service.js';
 import template from '../views/rb-checkbox.html';
 
 export class RbCheckbox extends FormControl(RbBase()) {
+
+	constructor() {
+		super();
+		this.state = {
+			value: undefined
+		}
+	}
 	/* Lifecycle
 	 ************/
 	viewReady() { // :void
@@ -14,15 +21,6 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		Object.assign(this.rb.elms, {
 			focusElm:    this.shadowRoot.querySelector('.sublabel'),
 			formControl: this.shadowRoot.querySelector('input')
-		});
-	}
-	updated(prevProps, prevState) { // :void (runs before viewReady())
-		if (super.updated) super.updated(prevProps, prevState);
-		if (!this.rb.view.isReady) return;
-		if (prevProps.value === this.value) return;
-		// runs after view updated (required)
-		this.rb.events.emit(this, 'value-changed', {
-			detail: { value: this.value }
 		});
 	}
 
@@ -33,6 +31,9 @@ export class RbCheckbox extends FormControl(RbBase()) {
 			...super.props,
 			kind: props.string,
 			label: props.string,
+			inline: props.boolean,
+			horizontal: props.boolean,
+			right: props.boolean,
 			sublabel: props.string,
 			subtext: props.string,
 			value: Object.assign({}, props.any, {
@@ -46,9 +47,13 @@ export class RbCheckbox extends FormControl(RbBase()) {
 						case /^{[^]*}$/.test(val): // object
 							newVal = JSON.parse(val);
 							break;
+						case /^-?\d*\.?\d*$/.test(val): // number
+							newVal = parseFloat(val)
+							break;
 						default:  // string
 							newVal = val;
 					}
+
 					return newVal;
 				}
 			})
@@ -62,21 +67,40 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		return code.toLowerCase();
 	}
 	async setValue(value) { // :void
-		this.value = !value;
-		await this.validate();
+		if (this.value === undefined || this.state.value === undefined) return this.value = true;
+		if (typeof(value) === 'boolean') return this.value = !value;
+		if (!!this.value) return this.value = null;
+		this.value = this.state.value;
+	}
+
+	/* Observer
+	 ***********/
+	updating(prevProps) { // :void
+		if (prevProps.value === this.value) return;
+		this.rb.events.emit(this, 'value-changed', {
+			detail: { value: this.value }
+		});
+	}
+
+	updated(prevProps, prevState) {
+		super.updated && super.updated(prevProps, prevState);
+		if (!!this.state.value) return;
+		this.state.value = this.value;
 	}
 
 	/* Event Handlers
 	 *****************/
-	_onclick(value, evt) { // :void
+	async _onclick(value, evt) { // :void
 		this.setValue(value);
+		await this.validate()
 	}
-	_onkeypress(value, evt) { // :void
+	async _onkeypress(value, evt) { // :void
 		const keys = ['enter','space'];
 		const key  = this.getKey(evt.code);
 		if (keys.indexOf(key) === -1) return;
 		evt.preventDefault(); // prevent space key from moving page down
 		this.setValue(value);
+		await this.validate()
 		this.rb.elms.formControl.checked = this.value; // needed for firefox
 	}
 
