@@ -24,6 +24,7 @@
 			name="${props.name}"
 			.value="${props.value}"
 			?checked="${!!props.value}"
+			@change="${this._onchange.bind(this)}"
 			@click="${this._onclick.bind(this, props.value)}">
 		<b class="checkbox"></b>
 		${props.sublabel}
