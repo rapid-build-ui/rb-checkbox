@@ -3,6 +3,7 @@
  **********/
 &.inline {
 	display: inline-flex;
+	margin-right: 15px;
 }
 
 &.right {
@@ -15,7 +16,7 @@
 	}
 	.checkbox {
 		margin-right: 0;
-		margin-left: remy(6);
+		margin-left: 15px;
 	}
 }
 
