@@ -1,7 +1,7 @@
 <div
 	?disabled="${props.disabled}"
 	class="
-		rb-checkbox
+		form-control
 		${props.inline ? 'inline' : ''}
 		${props.horizontal ? 'horizontal' : ''}
 		${props.right ? 'right' : ''}
@@ -9,14 +9,16 @@
 	">
 
 	${props.label
-		? html`<label class="control-label">${props.label}</label>`
+		? html`<label class="label">${props.label}</label>`
 		: null
 	}
-
+	
 	<label
 		tabindex="${props.disabled ? -1 : 0}"
 		class="sublabel ${!!props.value ? 'active' : ''}"
 		@keypress="${this._onkeypress.bind(this, props.value)}">
+		<b class="checkbox"></b>
+		${props.sublabel}
 		<input
 			hidden
 			tabindex="-1"
@@ -26,8 +28,6 @@
 			?checked="${!!props.value}"
 			@change="${this._onchange.bind(this)}"
 			@click="${this._onclick.bind(this, props.value)}">
-		<b class="checkbox"></b>
-		${props.sublabel}
 	</label>
 
 	${props._eMsg || props.subtext

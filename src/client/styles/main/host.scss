@@ -1,9 +1,0 @@
-/*******
- * HOST
- *******/
-:host {
-	contain: layout style; // paint causes hover circle to cut off in checkboxes
-}
-:host([hidden]) {
-	display: none;
-}
