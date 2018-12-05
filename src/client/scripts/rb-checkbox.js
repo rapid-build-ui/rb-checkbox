@@ -67,9 +67,9 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		return code.toLowerCase();
 	}
 	async setValue(value) { // :void
-		if (this.value === undefined || this.state.value === undefined) return this.value = true;
+		if (typeof(value) !== 'boolean' && value !== undefined) return this.value = null;
 		if (typeof(value) === 'boolean') return this.value = !value;
-		if (!!this.value) return this.value = null;
+		if (props.value === undefined && this.state.value === undefined) return this.value = !this.value;
 		this.value = this.state.value;
 	}
 
@@ -90,9 +90,14 @@ export class RbCheckbox extends FormControl(RbBase()) {
 
 	/* Event Handlers
 	 *****************/
+	_onchange(evt) { // :void
+		this.rb.events.emit(this, 'change', {
+			detail: { value: this.value }
+		});
+	}
 	async _onclick(value, evt) { // :void
 		this.setValue(value);
-		await this.validate()
+		await this.validate();
 	}
 	async _onkeypress(value, evt) { // :void
 		const keys = ['enter','space'];
@@ -102,6 +107,7 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		this.setValue(value);
 		await this.validate()
 		this.rb.elms.formControl.checked = this.value; // needed for firefox
+		this._onchange(evt);
 	}
 
 	/* Template

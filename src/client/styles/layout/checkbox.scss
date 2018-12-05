@@ -3,11 +3,9 @@
  ***********/
 .checkbox {
 	position: relative;
-	top: remy(1);
-	margin-right: remy(6);
-	border: 1px solid mapGet($formControlColors, borders, checkbox, default);
-	&::before,
-	&::after {
+	top: -1px;
+	margin-right: 6px;
+	&::before, &::after {
 		opacity: 0;
 		position: absolute;
 		transition: all .3s;
@@ -26,7 +24,7 @@
 	height: $dim;
 	min-width: $dim;
 	min-height: $dim;
-	&::before { // outer circle
+	&::before { // outer square
 		$dim: 220%;
 		$coords: -61%;
 		top: $coords;
@@ -34,7 +32,7 @@
 		width: $dim;
 		height: $dim;
 	}
-	&::after { // the dot
+	&::after { // the check
 		$dim: 50%;
 		$coords: 28%;
 		$width: remy(3.5);
@@ -51,25 +49,8 @@
 /* States
  *********/
 .sublabel {
-	&:focus {
-		outline: none;
-	}
-	&.active {
-		font-weight: 400;
-		letter-spacing: .025em;
-	}
-	&:focus .checkbox,
-	&:hover .checkbox,
-	&.active .checkbox {
-		border-color: mapGet($formControlColors, borders, active, default);
-	}
+	&:focus { outline: none; }
 	&:focus .checkbox::before,
-	&:hover .checkbox::before {
-		opacity: .1;
-		background-color: mapGet($formControlColors, bg, active, default);
-	}
-	&.active .checkbox::after {
-		opacity: 1;
-		border-color: mapGet($formControlColors, bg, active, default);
-	}
+	&:hover .checkbox::before { opacity: .1; }
+	&.active .checkbox::after { opacity: 1; }
 }

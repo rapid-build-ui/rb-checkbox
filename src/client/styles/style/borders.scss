@@ -1,0 +1,42 @@
+/**********
+ * BORDERS
+ **********/
+.checkbox {
+	border: 1px solid mapGet($formControlColors, borders, checkbox, default);
+}
+
+/* States
+ *********/
+.sublabel {
+	&:hover,
+	&:focus,
+	&.active {
+		.checkbox {
+			border-color: mapGet($formControlColors, borders, active, default);
+		}
+	}
+	&:hover,
+	&:focus {
+		.checkbox::before {
+			background-color: mapGet($formControlColors, bg, active, default);
+		}
+ 	}
+ 	&.active {
+		.checkbox::after {
+			border-color: mapGet($formControlColors, bg, active, default);
+		}
+ 	}
+}
+.form-control {
+	&.invalid {
+		.checkbox {
+			border-color: mapGet($formControlColors, borders, invalid, default);
+			&::before {
+				background-color: mapGet($formControlColors, bg, invalid, default);
+			}
+			&::after {
+				border-color: mapGet($formControlColors, bg, invalid, default);
+			}
+		}
+	}
+}
