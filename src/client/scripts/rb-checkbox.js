@@ -98,6 +98,7 @@ export class RbCheckbox extends FormControl(RbBase()) {
 	async _onclick(value, evt) { // :void
 		this.setValue(value);
 		await this.validate();
+		this._onchange(evt);
 	}
 	async _onkeypress(value, evt) { // :void
 		const keys = ['enter','space'];
