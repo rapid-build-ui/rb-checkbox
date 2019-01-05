@@ -2,17 +2,27 @@
 	?disabled="${props.disabled}"
 	class="
 		form-control
-		${props.inline ? 'inline' : ''}
-		${props.horizontal ? 'horizontal' : ''}
 		${props.right ? 'right' : ''}
+		${props.label && 'with-label'}
+		${props.inline ? 'inline' : ''}
 		${props._valid ? 'valid' : 'invalid'}
+		${props.horizontal ? 'horizontal' : ''}
+		${state.slots.popover ? 'with-popover' : ''}
 	">
-
-	${props.label
-		? html`<label class="label">${props.label}</label>`
-		: null
+	${props.label || state.slots.popover
+		? html`
+			<div class="label">
+				${state.slots.popover
+					? html`<slot name="popover"></slot>`
+					: null
+				}
+				${props.label
+					? html`<label>${props.label}</label>`
+					: null
+				}
+			</div>
+		`: null
 	}
-
 	<label
 		tabindex="${props.disabled ? -1 : 0}"
 		class="sublabel ${!!props.value ? 'active' : ''}"

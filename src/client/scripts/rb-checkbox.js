@@ -1,27 +1,29 @@
 /**************
  * RB-CHECKBOX
  **************/
-import { props, html, RbBase } from '../../rb-base/scripts/rb-base.js';
-import FormControl from '../../form-control/scripts/form-control.js';
-import Type from '../../rb-base/scripts/type-service.js';
-import template from '../views/rb-checkbox.html';
+import { RbBase, props, html } from '../../rb-base/scripts/rb-base.js';
+import FormControl             from '../../form-control/scripts/form-control.js';
+import Type                    from '../../rb-base/scripts/public/services/type.js';
+import template                from '../views/rb-checkbox.html';
+import '../../rb-popover/scripts/rb-popover.js';
 
 export class RbCheckbox extends FormControl(RbBase()) {
-
+	/* Lifecycle
+	 ************/
 	constructor() {
 		super();
 		this.state = {
+			...super.state,
 			value: undefined
 		}
 	}
-	/* Lifecycle
-	 ************/
 	viewReady() { // :void
 		super.viewReady && super.viewReady();
 		Object.assign(this.rb.elms, {
 			focusElm:    this.shadowRoot.querySelector('.sublabel'),
 			formControl: this.shadowRoot.querySelector('input')
 		});
+		this._initSlotStates(); // see rb-base: private/mixins/slot.js
 	}
 
 	/* Properties
@@ -113,7 +115,7 @@ export class RbCheckbox extends FormControl(RbBase()) {
 
 	/* Template
 	 ***********/
-	render({ props }) { // :string
+	render({ props, state }) { // :string
 		return html template;
 	}
 }
