@@ -1,3 +1,15 @@
+## [0.0.6](https://github.com/rapid-build-ui/rb-checkbox/compare/v0.0.5...v0.0.6) (2019-05-09)
+
+
+### Features
+
+* **bump deps:** ([98e12d8](https://github.com/rapid-build-ui/rb-checkbox/commit/98e12d8))
+	* **form-control** to v0.0.8
+	* **rb-base** to v0.0.9
+	* **rb-popover** to v0.0.16
+
+
+
 ## [0.0.5](https://github.com/rapid-build-ui/rb-checkbox/compare/v0.0.4...v0.0.5) (2019-03-05)
 
 
