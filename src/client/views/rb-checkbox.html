@@ -5,7 +5,7 @@
 		${props.right ? 'right' : ''}
 		${props.label && 'with-label'}
 		${props.inline ? 'inline' : ''}
-		${props._valid ? 'valid' : 'invalid'}
+		${this._valid ? 'valid' : 'invalid'}
 		${props.horizontal ? 'horizontal' : ''}
 		${state.slots.popover ? 'with-popover' : ''}
 	">
@@ -39,8 +39,8 @@
 			@click="${this._onclick.bind(this, props.value)}">
 	</label>
 
-	${props._eMsg || props.subtext
-		? html`<span class="subtext">${props._eMsg || props.subtext}</span>`
+	${this._error || props.subtext
+		? html`<span class="subtext">${this._error || props.subtext}</span>`
 		: null
 	}
 <div>

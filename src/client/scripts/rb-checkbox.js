@@ -19,9 +19,9 @@ export class RbCheckbox extends FormControl(RbBase()) {
 	}
 	viewReady() { // :void
 		super.viewReady && super.viewReady();
-		Object.assign(this.rb.elms, {
-			focusElm:    this.shadowRoot.querySelector('.sublabel'),
-			formControl: this.shadowRoot.querySelector('input')
+		Object.assign(this.rb.formControl, {
+			elm:      this.shadowRoot.querySelector('input'),
+			focusElm: this.shadowRoot.querySelector('.sublabel'),
 		});
 		this._initSlotStates(); // see rb-base: private/mixins/slot.js
 	}
@@ -109,7 +109,7 @@ export class RbCheckbox extends FormControl(RbBase()) {
 		evt.preventDefault(); // prevent space key from moving page down
 		this.setValue(value);
 		await this.validate()
-		this.rb.elms.formControl.checked = this.value; // needed for firefox
+		this.rb.formControl.elm.checked = this.value; // needed for firefox
 		this._onchange(evt);
 	}
 
