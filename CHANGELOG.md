@@ -1,7 +1,7 @@
 ## [0.0.6](https://github.com/rapid-build-ui/rb-checkbox/compare/v0.0.5...v0.0.6) (2019-05-09)
 
 
-### Features
+### Dependencies
 
 * **bump deps:** ([98e12d8](https://github.com/rapid-build-ui/rb-checkbox/commit/98e12d8))
 	* **form-control** to v0.0.8
