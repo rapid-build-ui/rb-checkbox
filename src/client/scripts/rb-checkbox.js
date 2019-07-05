@@ -12,6 +12,7 @@ export class RbCheckbox extends FormControl(RbBase()) {
 	 ************/
 	constructor() {
 		super();
+		this.version = '0.0.6';
 		this.state = {
 			...super.state,
 			value: undefined
