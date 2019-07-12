@@ -1,6 +1,6 @@
 {
   "name": "@rapid-build-ui/rb-checkbox",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "scripts/rb-checkbox.js",
   "description": "Rapid Build UI Web Component: rb-checkbox",
   "license": "MIT",
